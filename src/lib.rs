@@ -3,6 +3,8 @@ use colored::Colorize;
 use anyhow::Result;
 use std::env;
 
+pub mod commands;
+
 pub struct Do {
     pool: Pool<Sqlite>,
 }
