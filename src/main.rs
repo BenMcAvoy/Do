@@ -8,12 +8,12 @@ use clap::Parser;
 use do_cli::commands::Commands;
 use do_cli::commands::DoCli;
 
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Default)]
 struct Startup {
-   username: String,
-   password: String,
+    username: String,
+    password: String,
 }
 
 #[tokio::main(flavor = "current_thread")]

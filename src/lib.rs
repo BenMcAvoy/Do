@@ -34,7 +34,6 @@ WHERE users.Name = ? AND users.Hash = ?
         .fetch_all(&pool)
         .await?;
 
-
         if let Some(user) = users.get(0) {
             userID = user.UserID;
         } else {
@@ -53,10 +52,10 @@ JOIN users ON todos.UserID = users.UserID
 JOIN tasks ON todos.TaskID = tasks.TaskID
 WHERE users.UserID = ?;
                 "#,
-                self.userID,
-                )
-            .fetch_all(&self.pool)
-            .await?;
+            self.userID,
+        )
+        .fetch_all(&self.pool)
+        .await?;
 
         let mut complete_tasks = Vec::new();
         let mut incomplete_tasks = Vec::new();
