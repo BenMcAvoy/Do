@@ -11,6 +11,7 @@ CREATE TABLE `tasks` (
     `TaskID` INT AUTO_INCREMENT NOT NULL,
     `Name` VARCHAR(255) NOT NULL,
     `Description` VARCHAR(255) NOT NULL,
+    `Completed` BOOLEAN NOT NULL,
     PRIMARY KEY (
         `TaskID`
     )
