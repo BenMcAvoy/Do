@@ -1,8 +1,9 @@
 INSERT INTO tasks (Name, Description, Completed)
 VALUES
-    ('First task', 'Description for Task 1', true),
-    ('Second task', 'Description for Task 2', false),
-    ('Third task', 'Description for Task 3', true);
+    ('Homework', 'Do maths homework', true),
+    ('Homework', 'Do science homework', false),
+    ('Program', 'Do `Do` programming', true),
+    ('Dinner', 'Make dinner', false);
 
 INSERT INTO users (Name, Hash)
 VALUES
@@ -14,4 +15,5 @@ INSERT INTO todos (TaskID, UserID)
 VALUES
     (1, 1),
     (2, 2),
-    (3, 3);
+    (3, 3),
+    (4, 1);
