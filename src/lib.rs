@@ -19,8 +19,8 @@ impl Do {
     pub async fn list_todos(&self) -> Result<()> {
         let records = query!(
             r#"
-SELECT TaskID, Description, Completed
-FROM Tasks
+SELECT TodoID Description, Completed
+FROM todos
 ORDER BY id ASC;
         "#
         )
