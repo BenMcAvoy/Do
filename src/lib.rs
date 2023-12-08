@@ -49,7 +49,7 @@ WHERE users.UserID = ?;
             .await?;
 
             for task in tasks {
-                let taskText = format!("- {}: {}", task.Name, &task.Description);
+                let taskText = format!("{}: {}", task.Name, &task.Description);
 
                 match task.Completed != 0 {
                     true => complete_tasks.push(taskText),
