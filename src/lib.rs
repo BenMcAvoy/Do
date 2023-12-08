@@ -1,4 +1,4 @@
-use sqlx::{query, Pool, Sqlite, SqlitePool, MySqlPool};
+use sqlx::{query, MySqlPool};
 use colored::Colorize;
 use anyhow::Result;
 use std::env;
@@ -19,8 +19,8 @@ impl Do {
     pub async fn list_todos(&self) -> Result<()> {
         let records = query!(
             r#"
-SELECT id, description, done
-FROM todos
+SELECT TaskID, Description, Completed
+FROM Tasks
 ORDER BY id ASC;
         "#
         )
