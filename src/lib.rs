@@ -1,4 +1,4 @@
-use sqlx::{query, Pool, Sqlite, SqlitePool};
+use sqlx::{query, Pool, Sqlite, SqlitePool, MySqlPool};
 use colored::Colorize;
 use anyhow::Result;
 use std::env;
@@ -6,12 +6,12 @@ use std::env;
 pub mod commands;
 
 pub struct Do {
-    pool: Pool<Sqlite>,
+    pool: MySqlPool,
 }
 
 impl Do {
     pub async fn new() -> Result<Self> {
-        let pool = SqlitePool::connect(&env::var("DATABASE_URL")?).await?;
+        let pool = MySqlPool::connect(&env::var("DATABASE_URL")?).await?;
 
         Ok(Self { pool })
     }
