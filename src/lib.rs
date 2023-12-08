@@ -1,6 +1,8 @@
-use sqlx::{query, MySqlPool};
-use colored::Colorize;
+#![allow(non_snake_case)]
+
 use anyhow::Result;
+use colored::Colorize;
+use sqlx::{query, MySqlPool};
 use std::env;
 
 pub mod commands;
@@ -16,27 +18,46 @@ impl Do {
         Ok(Self { pool })
     }
 
-    pub async fn list_todos(&self) -> Result<()> {
-        let records = query!(
+    pub async fn list_todos(&self, user: String, hash: String) -> Result<()> {
+        let users = query!(
             r#"
-SELECT TodoID Description, Completed
-FROM todos
-ORDER BY id ASC;
-        "#
+SELECT UserID, Name, Hash
+FROM users
+WHERE users.Name = ? AND users.Hash = ?
+        "#,
+            user,
+            hash
         )
         .fetch_all(&self.pool)
         .await?;
 
-        let mut complete_tasks = Vec::new();
-        let mut incomplete_tasks = Vec::new();
+        let mut complete_tasks: Vec<String> = Vec::new();
+        let mut incomplete_tasks: Vec<String> = Vec::new();
 
-        for record in records {
-            let task = format!("- {}: {}", record.id, &record.description);
-            if record.done {
-                complete_tasks.push(task);
-            } else {
-                incomplete_tasks.push(task);
+        if let Some(user) = users.get(0) {
+            let tasks = query!(
+                r#"
+SELECT tasks.TaskID, tasks.Name, tasks.Description, tasks.Completed
+FROM todos
+JOIN users ON todos.UserID = users.UserID
+JOIN tasks ON todos.TaskID = tasks.TaskID
+WHERE users.UserID = ?;
+                "#,
+                user.UserID,
+            )
+            .fetch_all(&self.pool)
+            .await?;
+
+            for task in tasks {
+                let taskText = format!("- {}: {}", task.Name, &task.Description);
+
+                match task.Completed != 0 {
+                    true => complete_tasks.push(taskText),
+                    false => incomplete_tasks.push(taskText),
+                }
             }
+        } else {
+            return Ok(());
         }
 
         if !complete_tasks.is_empty() {
