@@ -9,5 +9,10 @@ pub struct DoCli {
 
 #[derive(Subcommand, Debug)]
 pub enum Commands {
-    List,
+    List {
+        #[clap(required = true)]
+        name: String,
+        #[clap(required = true)]
+        hash: String,
+    },
 }
