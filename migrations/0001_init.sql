@@ -1,32 +1,32 @@
 CREATE TABLE `todos` (
-    `TodoId` INT AUTO_INCREMENT NOT NULL,
-    `TaskId` INT  NOT NULL,
-    `UserId` INT  NOT NULL,
+    `TodoID` INT AUTO_INCREMENT NOT NULL,
+    `TaskID` INT NOT NULL,
+    `UserID` INT NOT NULL,
     PRIMARY KEY (
-        `TodoId`
+        `TodoID`
     )
 );
 
 CREATE TABLE `tasks` (
-    `TaskId` INT AUTO_INCREMENT NOT NULL,
-    `Name` VARCHAR(255)  NOT NULL,
-    `Description` VARCHAR(255)  NOT NULL,
+    `TaskID` INT AUTO_INCREMENT NOT NULL,
+    `Name` VARCHAR(255) NOT NULL,
+    `Description` VARCHAR(255) NOT NULL,
     PRIMARY KEY (
-        `TaskId`
+        `TaskID`
     )
 );
 
 CREATE TABLE `users` (
     `UserID` INT AUTO_INCREMENT NOT NULL,
-    `Name` VARCHAR(255)  NOT NULL,
-    `Hash` VARCHAR(255)  NOT NULL,
+    `Name` VARCHAR(255) NOT NULL,
+    `Hash` VARCHAR(255) NOT NULL,
     PRIMARY KEY (
         `UserID`
     )
 );
 
-ALTER TABLE `todos` ADD CONSTRAINT `fk_todos_TaskId` FOREIGN KEY(`TaskId`)
-REFERENCES `tasks` (`TaskId`);
+ALTER TABLE `todos` ADD CONSTRAINT `fk_todos_TaskID` FOREIGN KEY(`TaskID`)
+REFERENCES `tasks` (`TaskID`);
 
-ALTER TABLE `todos` ADD CONSTRAINT `fk_todos_UserId` FOREIGN KEY(`UserId`)
+ALTER TABLE `todos` ADD CONSTRAINT `fk_todos_UserID` FOREIGN KEY(`UserID`)
 REFERENCES `users` (`UserID`);
