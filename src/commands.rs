@@ -10,4 +10,18 @@ pub struct DoCli {
 #[derive(Subcommand, Debug)]
 pub enum Commands {
     List,
+
+    Add {
+        /// Name of the task
+        #[clap(required = true)]
+        name: String,
+
+        /// Description of the task
+        #[clap(required = true)]
+        description: String,
+
+        /// Sets complete
+        #[arg(short)]
+        completed: bool,
+    },
 }

@@ -50,6 +50,12 @@ async fn main() -> Result<()> {
 
     let result = match cli.command {
         Commands::List => do_cli.list_todos().await,
+
+        Commands::Add {
+            name,
+            description,
+            completed,
+        } => todo!(),
     };
 
     if let Err(e) = result {
